@@ -1,16 +1,29 @@
-## Hi there 👋
+# Welcome to your Lovable project
 
-<!--
-**amaralgas/amaralgas** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+This project was built with [Lovable](https://lovable.dev).
 
-Here are some ideas to get you started:
+## Build with Lovable
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+
+- **Ship faster**: describe what you want to build and Lovable handles the code.
+- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
+- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+
+## Development
+
+Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+
+```sh
+git clone <this-repository-url>
+cd <repository-name>
+npm i
+npm run dev
+```
+
+## Built with
+
+- TanStack Start
+- TypeScript
+- React
+- Tailwind CSS
