@@ -1,0 +1,145 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Barlow Condensed", system-ui, sans-serif;
+  --font-sans: "Barlow", system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-navy: var(--navy);
+  --color-navy-2: var(--navy-2);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-flame: var(--flame);
+  --color-flame-light: var(--flame-light);
+  --color-flame-foreground: var(--flame-foreground);
+  --color-water: var(--water);
+  --color-success: var(--success);
+  --color-whatsapp: var(--whatsapp);
+}
+
+:root {
+  --radius: 0.875rem;
+  /* Brand: navy #071B3A, navy-2 #0D2A55, orange #F58220, orange light #FF9D3D */
+  --navy: oklch(0.22 0.07 260);
+  --navy-2: oklch(0.3 0.09 260);
+  --navy-foreground: oklch(1 0 0);
+  --flame: oklch(0.71 0.18 52);
+  --flame-light: oklch(0.79 0.16 60);
+  --flame-foreground: oklch(1 0 0);
+  --water: oklch(0.65 0.14 240);
+  --success: oklch(0.65 0.16 150);
+  --whatsapp: oklch(0.7 0.17 150);
+
+  --background: oklch(0.975 0.003 260);
+  --foreground: oklch(0.3 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.3 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.3 0 0);
+  --primary: var(--navy);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.93 0.005 260);
+  --secondary-foreground: var(--navy);
+  --muted: oklch(0.93 0.005 260);
+  --muted-foreground: oklch(0.5 0.02 260);
+  --accent: var(--flame);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.92 0.006 260);
+  --input: oklch(0.88 0.008 260);
+  --ring: var(--flame);
+
+  --gradient-flame: linear-gradient(135deg, var(--flame), var(--flame-light));
+  --gradient-navy: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+  --shadow-flame: 0 12px 30px -10px color-mix(in oklab, var(--flame) 60%, transparent);
+  --shadow-card: 0 1px 2px color-mix(in oklab, var(--navy) 8%, transparent),
+    0 10px 30px -15px color-mix(in oklab, var(--navy) 25%, transparent);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
+}
+
+@utility bg-gradient-flame { background-image: var(--gradient-flame); }
+@utility bg-gradient-navy { background-image: var(--gradient-navy); }
+@utility shadow-flame { box-shadow: var(--shadow-flame); }
+@utility shadow-card { box-shadow: var(--shadow-card); }
+
+@utility btn-flame {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 3.25rem; padding: 0 1.5rem; border-radius: var(--radius);
+  background-image: var(--gradient-flame); color: var(--flame-foreground);
+  font-family: var(--font-display); font-weight: 700; font-size: 1.15rem;
+  letter-spacing: 0.03em; text-transform: uppercase;
+  box-shadow: var(--shadow-flame); transition: transform .15s, filter .15s;
+  &:hover { filter: brightness(1.06); transform: translateY(-1px); }
+  &:active { transform: scale(.98); }
+  &:disabled { opacity: .5; pointer-events: none; }
+}
+@utility btn-ghost-light {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 3.25rem; padding: 0 1.5rem; border-radius: var(--radius);
+  border: 2px solid color-mix(in oklab, var(--navy-foreground) 35%, transparent);
+  color: var(--navy-foreground); font-family: var(--font-display); font-weight: 700;
+  font-size: 1.15rem; letter-spacing: 0.03em; text-transform: uppercase; transition: background .15s;
+  &:hover { background: color-mix(in oklab, var(--navy-foreground) 10%, transparent); }
+}
+@utility btn-navy {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 3rem; padding: 0 1.25rem; border-radius: var(--radius);
+  background: var(--navy); color: var(--navy-foreground); font-family: var(--font-display);
+  font-weight: 700; font-size: 1.05rem; letter-spacing: 0.03em; text-transform: uppercase;
+  transition: background .15s;
+  &:hover { background: var(--navy-2); }
+}
+@utility field {
+  width: 100%; min-height: 3.25rem; padding: 0 1rem; border-radius: var(--radius);
+  border: 1.5px solid var(--input); background: var(--card); font-size: 1rem;
+  &:focus { outline: none; border-color: var(--flame); box-shadow: 0 0 0 3px color-mix(in oklab, var(--flame) 20%, transparent); }
+}
+
+@keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--flame) 50%, transparent); } 100% { box-shadow: 0 0 0 14px transparent; } }
+@utility animate-pulse-ring { animation: pulse-ring 1.8s ease-out infinite; }
+
+@media print {
+  @page { margin: 8mm; }
+  body > *:not(.receipt-overlay) { display: none !important; }
+  .receipt-overlay { position: static; padding: 0; background: var(--card); overflow: visible; }
+  .receipt-paper { max-width: 80mm; margin: 0 auto; padding: 0; box-shadow: none; border-radius: 0; }
+  .receipt-actions { display: none !important; }
+}
