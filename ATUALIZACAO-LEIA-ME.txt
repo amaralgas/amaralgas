@@ -1,0 +1,25 @@
+ATUALIZAÇÃO AMARAL GÁS
+
+Alterações:
+- Cadastro/edição de produto agora tem campo "Frete deste produto (R$)".
+- Campo de frete vazio usa o frete padrão da loja (STORE.deliveryFee, atualmente R$ 5,00).
+- Frete 0 significa frete grátis para aquele produto.
+- O carrinho soma o frete configurado para cada produto diferente adicionado.
+- Relatórios agora permitem escolher data inicial e final, clicar em Carregar relatório, consultar indicadores, produtos vendidos, forma de pagamento e pedidos do período.
+- Botão "Baixar PDF / Imprimir" abre a impressão do navegador. Escolha "Salvar como PDF" no destino para gerar PDF.
+
+IMPORTANTE — BANCO DE DADOS
+Antes de publicar o código, abra o painel do Supabase do projeto conectado e vá em SQL Editor. Execute:
+
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS delivery_fee numeric(10,2);
+
+A coluna é nullable de propósito: NULL usa o frete padrão da loja; 0 define frete grátis. Faça backup antes de executar alterações no banco.
+
+PUBLICAÇÃO
+1. Não substitua o .env do projeto que já está publicado. Ele foi omitido deste ZIP por segurança.
+2. Faça backup/branch do GitHub antes de aplicar.
+3. Copie os arquivos deste ZIP para o repositório mantendo os caminhos.
+4. Commit e push para a branch conectada à Hostinger. Aguarde o deploy concluir.
+5. Teste cadastro/edição de produto, frete no carrinho e relatórios em datas conhecidas.
+
+Nota: a exportação PDF usa a caixa de impressão do navegador; selecione "Salvar como PDF".

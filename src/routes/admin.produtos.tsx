@@ -12,14 +12,14 @@ export const Route = createFileRoute("/admin/produtos")({ head: () => ({ meta: [
 
 type Form = {
   id?: string; name: string; description: string; category: Category; price: string; old_price: string;
-  cost: string; stock: string; min_stock: string; emoji: string; featured: boolean; active: boolean;
+  cost: string; delivery_fee: string; stock: string; min_stock: string; emoji: string; featured: boolean; active: boolean;
   items: string; sort_order: string; image_url: string | null;
 };
 const EMOJI: Record<Category, string> = { gas: "🔥", agua: "💧", acessorio: "🔧", combo: "🎁" };
-const empty: Form = { name: "", description: "", category: "gas", price: "", old_price: "", cost: "0", stock: "0", min_stock: "5", emoji: "🔥", featured: false, active: true, items: "", sort_order: "0", image_url: null };
+const empty: Form = { name: "", description: "", category: "gas", price: "", old_price: "", cost: "0", delivery_fee: "", stock: "0", min_stock: "5", emoji: "🔥", featured: false, active: true, items: "", sort_order: "0", image_url: null };
 const toForm = (p: DbProduct): Form => ({
   id: p.id, name: p.name, description: p.description, category: p.category as Category, price: String(p.price),
-  old_price: p.old_price ? String(p.old_price) : "", cost: String(p.cost), stock: String(p.stock), min_stock: String(p.min_stock),
+  old_price: p.old_price ? String(p.old_price) : "", cost: String(p.cost), delivery_fee: p.delivery_fee == null ? "" : String(p.delivery_fee), stock: String(p.stock), min_stock: String(p.min_stock),
   emoji: p.emoji, featured: p.featured, active: p.active, items: p.items.join("\n"), sort_order: String(p.sort_order), image_url: p.image_url,
 });
 const num = (s: string) => Number(s.replace(",", ".")) || 0;
@@ -41,7 +41,7 @@ function Produtos() {
     try {
       const row = {
         name: form.name.trim(), description: form.description.trim(), category: form.category, price: num(form.price),
-        old_price: form.old_price ? num(form.old_price) : null, cost: num(form.cost), stock: Math.round(num(form.stock)),
+        old_price: form.old_price ? num(form.old_price) : null, cost: num(form.cost), delivery_fee: form.delivery_fee.trim() === "" ? null : num(form.delivery_fee), stock: Math.round(num(form.stock)),
         min_stock: Math.round(num(form.min_stock)), emoji: form.emoji || EMOJI[form.category], featured: form.featured,
         active: form.active, items: form.items.split("\n").map((s) => s.trim()).filter(Boolean), sort_order: Math.round(num(form.sort_order)),
       };
@@ -138,6 +138,7 @@ function Produtos() {
               <L t="Preço de venda (R$)"><input className="field" inputMode="decimal" value={form.price} onChange={set("price")} required /></L>
               <L t="Preço antigo (promoção)"><input className="field" inputMode="decimal" value={form.old_price} onChange={set("old_price")} placeholder="Opcional" /></L>
               <L t="Custo (R$)"><input className="field" inputMode="decimal" value={form.cost} onChange={set("cost")} /></L>
+              <L t="Frete deste produto (R$)"><input className="field" inputMode="decimal" value={form.delivery_fee} onChange={set("delivery_fee")} placeholder="Padrão da loja" /><span className="mt-1 block text-xs font-normal text-muted-foreground">Deixe vazio para usar o frete padrão da loja. Informe 0 para frete grátis.</span></L>
               <L t="Estoque"><input className="field" inputMode="numeric" value={form.stock} onChange={set("stock")} /></L>
               <L t="Estoque mínimo"><input className="field" inputMode="numeric" value={form.min_stock} onChange={set("min_stock")} /></L>
               {form.category === "combo" && <L c="col-span-2" t="Itens do combo (um por linha)"><textarea className="field min-h-20" value={form.items} onChange={set("items")} /></L>}

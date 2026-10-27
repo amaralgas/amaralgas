@@ -317,6 +317,7 @@ export type Database = {
           cost: number
           created_at: string
           description: string
+          delivery_fee: number | null
           emoji: string
           featured: boolean
           id: string
@@ -336,6 +337,7 @@ export type Database = {
           cost?: number
           created_at?: string
           description?: string
+          delivery_fee?: number | null
           emoji?: string
           featured?: boolean
           id?: string
@@ -355,6 +357,7 @@ export type Database = {
           cost?: number
           created_at?: string
           description?: string
+          delivery_fee?: number | null
           emoji?: string
           featured?: boolean
           id?: string

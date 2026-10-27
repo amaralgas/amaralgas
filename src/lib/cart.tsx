@@ -37,7 +37,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       .map(([id, qty]) => ({ product: getProduct(id)!, qty }))
       .filter((l) => l.product && l.qty > 0);
     const subtotal = lines.reduce((s, l) => s + l.product.price * l.qty, 0);
-    const delivery = lines.length ? STORE.deliveryFee : 0;
+    const delivery = lines.length ? lines.reduce((total, line) => total + (line.product.deliveryFee == null ? STORE.deliveryFee : line.product.deliveryFee), 0) : 0;
     const discount = 0;
     return {
       lines, subtotal, delivery, discount, total: subtotal + delivery - discount,

@@ -12,6 +12,7 @@ export interface Product {
   description: string;
   category: Category;
   price: number;
+  deliveryFee?: number | null;
   /** Original price when on promotion */
   oldPrice?: number;
   image: string;
@@ -45,7 +46,7 @@ export async function loadProducts() {
   if (error) { console.error(error); return; }
   PRODUCTS = (data ?? []).map((r) => ({
     id: r.id, name: r.name, description: r.description, category: r.category as Category,
-    price: Number(r.price), oldPrice: r.old_price ? Number(r.old_price) : undefined,
+    price: Number(r.price), deliveryFee: r.delivery_fee == null ? null : Number(r.delivery_fee), oldPrice: r.old_price ? Number(r.old_price) : undefined,
     image: r.image_url || fallbackImage(r.id, r.category as Category),
     emoji: r.emoji, featured: r.featured, stock: r.stock,
     items: r.items?.length ? r.items : undefined,
